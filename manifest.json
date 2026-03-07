@@ -13,7 +13,7 @@
     "content_scripts": [
         {
             "matches": ["https://www.google.com/search*"],
-            "js": ["overviewreviewer.js"]
+            "js": ["./scripts/overviewReviewer.js"]
         }
     ],
 
