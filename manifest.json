@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "OverviewReviewer",
+    "version": "1.0",
+
+    "description": "Tool which verifies claims of Google's AI overview by reading given sources and assessing whether the overview is biased by the search terms.",
+
+    "icons": {
+        "96": "./icons/placeholder-96",
+        "48": "./icons/placeholder-48"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["https://www.google.com/search*"],
+            "js": ["overviewreviewer.js"]
+        }
+    ],
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "noshorts@tmo",
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
+        }
+    }
+}
