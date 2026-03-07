@@ -13,7 +13,6 @@ function waitForElement(selector, callback){
 }
 
 function scrapeOverview(selector) {
-    let element = document.querySelector(selector);
     document.body.style.border = "5px solid red";
 }
 
@@ -25,10 +24,14 @@ function openReview() {
     }
 }
 
-waitForElement(`div[aria-label="Show more AI Overview"]`, async (element) => {
-    delay(500).then(async () => {
-        await element.click();
-        openReview()
-        scrapeOverview(`div[jsname][data-rl]`);
-    })    
-})
+async function checkPage() {
+    waitForElement(`div[aria-label="Show more AI Overview"]`, async (showMore) => {
+        await delay(500);
+        await showMore.click();
+        await waitForElement(`div[jsname][data-rl]`, async (overview) => {
+            await scrapeOverview(overview);
+        });
+    })
+}
+
+checkPage()
