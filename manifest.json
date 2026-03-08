@@ -17,6 +17,14 @@
         }
     ],
 
+    "permissions": [
+    "activeTab",
+    "https://ipinfo.io/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "webNavigation"
+    ],
+
     "browser_specific_settings": {
         "gecko": {
             "id": "noshorts@tmo",
