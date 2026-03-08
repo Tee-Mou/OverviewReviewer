@@ -1,0 +1,48 @@
+body {
+  background-color: beige;
+}
+
+.chat_container {
+  padding: 10px;
+  height: calc(100vh - 40px);
+  border: 2px solid white;
+  background-color: bisque;
+  font: 16px verdana;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat_history {
+  height: calc(100% - 78px);
+  overflow: scroll;
+}
+
+.chat_bar {
+  width: calc(100% - 20px);
+}
+
+.chat_box {
+  height: 48px;
+  width: 100%;
+  background-color: aquamarine;
+  border-radius: 10;
+}
+
+.user_message {
+  color: white;
+  background-color: green;
+  margin: 5px;
+  width: calc(100%-20px);
+  word-wrap: break-word;
+}
+.llm_message {
+  color: white;
+  background-color: blue;
+  margin: 5px;
+  width: calc(100%-20px);
+  word-wrap: break-word;
+}
+
+.buffer {
+  height: 10px;
+}

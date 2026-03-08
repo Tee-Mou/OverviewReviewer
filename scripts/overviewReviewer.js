@@ -12,44 +12,24 @@ function waitForElement(selector, callback){
     }, 100)
 }
 
-function reviewPopup(confirmPopup, cancelPopup) {
-    if (confirm("AI Review?")) {
-        txt = "Let's do it";
-        confirmPopup()
-    } else {
-        txt = "nvm";
-        cancelPopup()
-    }
+async function openReviewWindow(prompt) {
+    let params = [
+        "left=500,top=500,width=500,height=500,menubar=no,toolbar=no,resizeable=no"
+    ]
+    const url = ("http://localhost:9995/?chat_box=").concat(prompt)
+    window.open(url, "Chat", params);
 }
 
-async function query_llm(query) {
-    let url = "http://localhost:11434/api/chat";
-    let prompt = "Please verify the validity of the following overview. Give an accuracy score out of 100.";
-    prompt = prompt.concat(query);
-    let params = {
-        "model": "llama2",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
-    };
-    const options = {
-        method: "POST",
-        body: JSON.stringify(params)
-    };
-    let response = await (await fetch(url, options)).text();
-    return response;
-}
-
-function openReview() {
-    return new Promise((resolve, reject) => {
-        reviewPopup(resolve, reject);
+function reviewChat(prompt) {
+    return new Promise(() => {
+        openReviewWindow(prompt);
     })
 }
 
 function scrapeOverview(selector) {
     return new Promise(resolve => {
-        var innerText = selector.innerText;
-        resolve(innerText);
+        var overviewText = selector.innerText;
+        resolve(overviewText);
     })
 }
 
@@ -59,14 +39,13 @@ async function checkPage() {
     });
     await delay(500);
     waitForElement(`div[jsname][data-rl]`, async (overview) => {
-        scrapeOverview(overview).then(async (innerText) => {
-            console.log(innerText);
-            let llm_response = await query_llm(innerText);
-            console.log(llm_response)
+        scrapeOverview(overview).then(async (overviewText) => {
+            console.log("hye")
+            let prompt = "Please verify the validity of the following overview. Give an accuracy score out of 100:\n";
+            prompt = prompt.concat(overviewText);
+            reviewChat(prompt)
         });
-    });
-
-    
+    });    
 }
 
 checkPage()
